@@ -6,6 +6,15 @@
     "type": "git",
     "url": "https://github.com/mlarosa2/ts-window.git"
   },
+  "keywords": [
+    "panel",
+    "window",
+    "layout",
+    "popup",
+    "widget",
+    "zero dependencies",
+    "ui"
+  ],
   "main": "dist/ts-window.js",
   "module": "src/index.ts",
   "scripts": {
