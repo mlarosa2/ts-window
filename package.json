@@ -1,0 +1,22 @@
+{
+  "name": "ts-window",
+  "version": "1.0.0",
+  "description": "lightweight window generating library for web applications",
+  "repositorty": {
+    "type": "git",
+    "url": "https://github.com/mlarosa2/ts-window.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "author": "Mark LaRosa",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^4.4.1",
+    "typescript": "^2.9.2",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.7"
+  }
+}
