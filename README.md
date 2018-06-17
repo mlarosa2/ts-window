@@ -3,7 +3,8 @@
 ## Usage
 Add windows to your web application with this lightweight library (only 15KB!). [Click here]() to see the demo (link coming soon), along with code to generate a window. The configuration object right now looks like this:
 ```
-id: string, // used as id for whole window, ie window-one
+{
+    id: string, // used as id for whole window, ie window-one
     parentSelector: string, // CSS selector for the window's parent
     width: number|string, // if number then px, if string then '100%'
     height: number|string, // if number then px, if string then '100%'
@@ -38,6 +39,7 @@ id: string, // used as id for whole window, ie window-one
     onMoveEnd?: Function, // function to run when user stops dragging the window
     onResizeStart?: Function, // function to run when user begins to resize the window
     onResizeEnd?: Function // function to run when user stops resizing the window
+}
 ```
 I am planning on adding much more customization. Please provide feedback as what you would like to see customized, and other features! 
 
