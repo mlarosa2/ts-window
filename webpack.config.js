@@ -17,6 +17,9 @@ module.exports = {
   },
   output: {
     filename: 'ts-window.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: 'ts-window',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   }
 };

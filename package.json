@@ -6,7 +6,8 @@
     "type": "git",
     "url": "https://github.com/mlarosa2/ts-window.git"
   },
-  "main": "index.js",
+  "main": "dist/ts-window.js",
+  "module": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch"
