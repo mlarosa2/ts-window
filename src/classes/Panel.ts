@@ -1,6 +1,6 @@
 import Draggable from './Draggable';
 import Resizable from './Resizable';
-import Util from './Utilities';
+import Style from './Style';
 
 export default class Panel {
     config: PanelConfig;
@@ -48,8 +48,22 @@ export default class Panel {
         if (this.parent === null) {
             throw 'Parent selector could not be found';
         } else {
-            const panelStyle  = this.addPanelStyle();
-            const headerStyle = this.addHeaderStyle(); 
+            let panelConfig = {}, headerConfig = {};
+            if (this.config.style) {
+                if (this.config.style.panel) {
+                    panelConfig = this.config.style.panel;
+                }
+                if (this.config.style.header) {
+                    headerConfig = this.config.style.header
+                }
+            }
+            const panelStyle  = Style.addPanelStyle(
+                panelConfig,
+                this.parent,
+                this.config.width,
+                this.config.height
+            );
+            const headerStyle = Style.addHeaderStyle(headerConfig); 
             this.parent.innerHTML += `
                 <section style="${panelStyle}" id="${this.config.id}">
                     <header style="${headerStyle}">
@@ -195,71 +209,5 @@ export default class Panel {
         if (this.config.onNormalize) {
             this.config.onNormalize();
         }
-    }
-
-    private addPanelStyle(): string {
-        let panelStyle: string = `box-sizing:border-box;border:1px solid black;position:absolute;top:0;left:0;width:${this.config.width};height:${this.config.height};`,
-            parentWidth: number, parentHeight: number;
-            panelStyle += `min-height:200px;min-width:200px;`;
-        if (this.parent != null) {
-            parentHeight = this.parent.getBoundingClientRect().bottom - this.parent.getBoundingClientRect().top;
-            parentWidth  = this.parent.getBoundingClientRect().right - this.parent.getBoundingClientRect().left;
-        } else {
-            parentHeight = 0;
-            parentWidth  = 0;
-        }
-        if (this.config.style && this.config.style.panel) {
-            if (this.config.style.panel.maxHeight) {
-                let maxHeight: number|string = this.config.style.panel.maxHeight;
-                if (typeof maxHeight === 'string') {
-                    maxHeight = parentHeight * (Util.getNumber(maxHeight)/100);
-                }
-                panelStyle += `max-height:${maxHeight};`;
-            }
-            if (this.config.style.panel.maxWidth) {
-                let maxWidth: number|string = this.config.style.panel.maxWidth;
-                if (typeof maxWidth === 'string') {
-                    maxWidth = parentWidth * (Util.getNumber(maxWidth)/100);
-                }
-                panelStyle += `max-width:${this.config.style.panel.maxWidth};`;
-            }
-            if (this.config.style.panel.minWidth) {
-                let minWidth: number|string = this.config.style.panel.minWidth;
-                if (typeof minWidth === 'string') {
-                    minWidth = parentHeight * (Util.getNumber(minWidth)/100);
-                }
-                panelStyle += `min-width:${this.config.style.panel.minWidth};`;
-            }
-            if (this.config.style.panel.minHeight) {
-                let minHeight: number|string = this.config.style.panel.minHeight;
-                if (typeof minHeight === 'string') {
-                    minHeight = parentHeight * (Util.getNumber(minHeight)/100);
-                }
-                panelStyle += `min-height:${this.config.style.panel.minHeight};`;
-            }
-            if (this.config.style.panel.left) {
-                panelStyle += `left:${this.config.style.panel.left}px;`;
-            }
-            if (this.config.style.panel.top) {
-                panelStyle += `top:${this.config.style.panel.top}px`;
-            }
-        }
-
-        return panelStyle;
-    }
-
-    private addHeaderStyle(): string {
-        let headerStyle: string = 'border-bottom:1px solid black;cursor:move;padding-left:3px;';
-        if (this.config.style && this.config.style.header) {
-            if (this.config.style.header.borderBottom) {
-                headerStyle += this.config.style.header.borderBottom;
-            }
-
-            if (this.config.style.header.cursor) {
-                headerStyle += this.config.style.header.cursor;
-            }
-        }
-
-        return headerStyle;
     }
 }
